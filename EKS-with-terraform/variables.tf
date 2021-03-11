@@ -1,3 +1,7 @@
+################### provider ##############
+variable "provider_region" {
+  type    = string
+}
 
 ############ vpc ######################
 variable "vpc_cidr" {
@@ -58,5 +62,10 @@ variable "pv_sub_2_zone" {
 }
 
 variable "pv_sub_2_tag" {
+  type    = string
+}
+
+############### eks ##################
+variable "cluster_name" {
   type    = string
 }

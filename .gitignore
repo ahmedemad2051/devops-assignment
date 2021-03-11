@@ -1,1 +1,4 @@
 EKS-with-terraform/.terraform
+EKS-with-terraform/terraform.tfstate
+EKS-with-terraform/terraform.tfstate.backup
+EKS-with-terraform/kubeconfig_first_cluster
