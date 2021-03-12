@@ -5,7 +5,7 @@ pipeline{
     stages{
         stage('build') {
             steps {
-                sh 'ping google.com'
+                sh 'ping 8.8.8.8'
 
             }
         }
