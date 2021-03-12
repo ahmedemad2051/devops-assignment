@@ -9,7 +9,7 @@ pipeline {
                }
            }
            steps {
-              sh 'pip3 install redis --user'
+              sh 'pip3 install -r app/requirements.txt --user'
            }
        }
 
