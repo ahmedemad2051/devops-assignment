@@ -34,7 +34,7 @@ pipeline {
       stage('Publish') {
           steps{
               script {
-                  def dockerImage = docker.build("app" + ":$BUILD_NUMBER","-f app/Dockerfile .")
+                  def dockerImage = docker.build("app" + ":$BUILD_NUMBER","--net host -f app/Dockerfile .")
               }
           }
       }
