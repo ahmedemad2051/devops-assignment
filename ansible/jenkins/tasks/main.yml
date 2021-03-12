@@ -28,16 +28,21 @@
               ports:
               - containerPort: 8080
               volumeMounts:
-              - name: docker-volume
+              - name: docker-sock
                 mountPath: /var/run/docker.sock
+              - name: docker-command
+                mountPath: /usr/bin/docker
               - name: jenkins-data
                 mountPath: /var/jenkins_home/
-            #securityContext:
-            #  runAsUser: 0
+            securityContext:
+             fsGroup: 1950
             volumes:
-            - name: docker-volume
+            - name: docker-sock
               hostPath:
                 path: /var/run/docker.sock
+            - name: docker-command
+              hostPath:
+                path: /usr/bin/docker
             - name: jenkins-data
               emptyDir: {}
 
