@@ -4,6 +4,7 @@
   - name: Deploy the service
     k8s:
       state: present
+      kubeconfig: "/var/jenkins_home/.kube/config"
       namespace: tools
       definition:
         apiVersion: v1
@@ -21,6 +22,7 @@
   - name: Deploy the app
     k8s:
       state: present
+      kubeconfig: "/var/jenkins_home/.kube/config"
       namespace: tools
       definition:
         apiVersion: apps/v1

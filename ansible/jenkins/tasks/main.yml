@@ -1,5 +1,44 @@
 ---
 # tasks file for jenkins
+- name: add jenkins persistent volume
+  k8s:
+    state: present
+    kubeconfig: "{{ kube_config }}"
+    definition:
+      apiVersion: v1
+      kind: PersistentVolume
+      metadata:
+        name: jenkins-pv-volume
+        namespace: tools
+        labels:
+          type: local
+      spec:
+        storageClassName: manual
+        capacity:
+          storage: 1Gi
+        accessModes:
+          - ReadWriteOnce
+        hostPath:
+          path: "/tmp/data"
+
+- name: add jenkins persistent volume claim
+  k8s:
+    state: present
+    kubeconfig: "{{ kube_config }}"
+    definition:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: jenkins-pv-claim
+        namespace: tools
+      spec:
+        storageClassName: manual
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+
 - name: add jenkins deployment
   k8s:
     state: present
@@ -24,7 +63,7 @@
           spec:
             containers:
             - name: jenkins
-              image: jenkins/jenkins:alpine
+              image: ahmedemad2051/jenkins-ansible:latest
               ports:
               - containerPort: 8080
               volumeMounts:
@@ -32,8 +71,8 @@
                 mountPath: /var/run/docker.sock
               - name: docker-command
                 mountPath: /usr/bin/docker
-              - name: jenkins-data
-                mountPath: /var/jenkins_home/
+              # - name: jenkins-pv-storage
+                # mountPath: /var/jenkins_home/
             securityContext:
              fsGroup: 1950
             volumes:
@@ -43,8 +82,9 @@
             - name: docker-command
               hostPath:
                 path: /usr/bin/docker
-            - name: jenkins-data
-              emptyDir: {}
+            - name: jenkins-pv-storage
+              persistentVolumeClaim:
+                claimName: jenkins-pv-claim
 
 - name: add jenkins service
   k8s:
