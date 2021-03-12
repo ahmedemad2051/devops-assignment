@@ -2,6 +2,7 @@
 
 - Install EKS on AWS via terraform
 - Install Jenkins, SonarQube and Nexus via ansible
+- Implement a CICD pipeline for a python application
 
 ---
 
@@ -109,6 +110,21 @@ Nexus
 
 ![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2013-49-15.png)
 
+###  Implement a CICD pipeline for a python application:
+Requirements Plugins
+* Github Integration
+* Docker
+* Docker pipeline
+
+Create a pipeline job on Jenkins
+
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2013-49-15.png)
+
+Add the repo URL and Jenkinsfile path
+
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2013-49-15.png)
+
+Now you can build the pipeline
 
 
 
