@@ -64,11 +64,10 @@ $ kubectl get nodes
  Install ansible
 ```bash
 $ pip3 install --user ansible
-$ pip install --user openshift
 ```
  Install openshift so you can use k8s module in ansible
 ```bash
-$ pip install --user openshift
+$ pip3 install --user openshift
 ```
  Run the ansible playbook
 ```bash
@@ -81,3 +80,35 @@ Now if you run the below command you can see the deployments applied
 $ kubectl get all -n tools
 ```
 ![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2011-12-37.png)
+
+To open Jenkins,SonarQube or Nexus run below command then open any EXTERNAL-IP (LoadBalancer endpoint) in browser
+```bash
+$ kubectl get svc -n tools
+```
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2013-41-18.png)
+
+To open Jenkins run
+```bash
+$ kubectl exec -n tools [jenkins-pod-name] -- cat /var/jenkins_home/secrets/initialAdminPassword
+```
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2013-42-44.png)
+
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2013-55-42.png)
+
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2013-55-57.png)
+
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2014-01-06.png)
+
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2014-01-45.png)
+
+To open SonarQube use default user:admin and password:admin
+
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2014-08-58.png)
+
+Nexus
+
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2013-49-15.png)
+
+
+
+
