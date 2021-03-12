@@ -1,12 +1,13 @@
 # devops-assignment
 
 - Install EKS on AWS via terraform
+- Install Jenkins, SonarQube and Nexus via ansible
 
 ---
 
 ###  Install EKS on AWS via terraform:
 
-2- Requirements: 
+1- Requirements: 
 * Terraform
 * AWScli
 * Wget
@@ -23,7 +24,7 @@ After you've done this, initalize your Terraform workspace, which will download 
 $ terraform init
 ``` 
 
-![TF_INIT](https://github.com/ahmedemad2051/devops-assignment/blob/main/EKS-with-terraform/readme_images/Screenshot%20from%202021-03-11%2012-59-27.png)
+![TF_INIT](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-11%2012-59-27.png)
 
 
 
@@ -32,12 +33,12 @@ Provision your EKS cluster by running
 $ terraform apply -var-file dev.tfvars
 ```
 
-![TF_APPLY](https://github.com/ahmedemad2051/devops-assignment/blob/main/EKS-with-terraform/readme_images/Screenshot%20from%202021-03-11%2018-48-11.png)
+![TF_APPLY](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-11%2018-48-11.png)
 
 
 In AWS Console You can see resources that created via terraform: 
-![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/EKS-with-terraform/readme_images/Screenshot%20from%202021-03-11%2018-49-09.png)
-![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/EKS-with-terraform/readme_images/Screenshot%20from%202021-03-11%2018-49-41.png)
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-11%2018-49-09.png)
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-11%2018-49-41.png)
 
 ---
 
@@ -49,7 +50,7 @@ This command will get the access credentials for your cluster and automatically 
 $ aws eks --region eu-north-1 update-kubeconfig --name first_cluster
 ```
 
-![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/EKS-with-terraform/readme_images/Screenshot%20from%202021-03-11%2018-51-02.png)
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-11%2018-51-02.png)
 
 ### check cluster is ready:
 
@@ -57,4 +58,26 @@ $ aws eks --region eu-north-1 update-kubeconfig --name first_cluster
 $ kubectl get nodes
 ```
 
-![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/EKS-with-terraform/readme_images/Screenshot%20from%202021-03-11%2018-51-11.png)
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-11%2018-51-11.png)
+
+###  Install Jenkins, SonarQube and Nexus via ansible:
+ Install ansible
+```bash
+$ pip3 install --user ansible
+$ pip install --user openshift
+```
+ Install openshift so you can use k8s module in ansible
+```bash
+$ pip install --user openshift
+```
+ Run the ansible playbook
+```bash
+$ ansible-playbook ansible/playbook.yaml
+```
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2011-09-43.png)
+
+Now if you run the below command you can see the deployments applied
+```bash
+$ kubectl get all -n tools
+```
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2011-12-37.png)
