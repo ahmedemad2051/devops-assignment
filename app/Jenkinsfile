@@ -1,5 +1,8 @@
 pipeline {
    agent any
+   environment {
+    dockerImage = ''
+   }
    stages {
        stage('Build') {
            agent {
@@ -34,7 +37,16 @@ pipeline {
       stage('Publish') {
           steps{
               script {
-                  def dockerImage = docker.build("app" + ":$BUILD_NUMBER","--network host -f app/Dockerfile .")
+                  dockerImage = docker.build("app" + ":$BUILD_NUMBER","--network  host -f app/Dockerfile .")
+              }
+          }
+      }
+
+      stage ('Deploy') {
+          steps {
+              script{
+              sh 'cat ${dockerImage}'
+            
               }
           }
       }
