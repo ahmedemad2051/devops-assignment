@@ -46,7 +46,7 @@ pipeline {
       stage ('Deploy') {
           steps {
               script{
-              sh 'cat ${image_name}'
+              echo image_name
             
               }
           }
