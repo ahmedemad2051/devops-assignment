@@ -6,7 +6,7 @@ pipeline{
     stages{
         stage('build') {
             steps {
-                sh 'sudo pip install redis'
+                sh 'python -m pip install redis --user'
 
             }
         }
