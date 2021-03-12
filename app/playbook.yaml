@@ -1,0 +1,44 @@
+
+- hosts: localhost
+  tasks:
+  - name: Deploy the service
+    k8s:
+      state: present
+      namespace: tools
+      definition:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: app
+        spec:
+          type: LoadBalancer
+          selector:
+            name: app
+          ports:
+            - port: 80
+              targetPort: 8080
+
+  - name: Deploy the app
+    k8s:
+      state: present
+      namespace: tools
+      definition:
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: app
+          labels:
+            name: app
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              name: app
+          template:
+            metadata:
+              labels:
+                name: app
+            spec:
+              containers:
+              - name: app
+                image: "${image}"
