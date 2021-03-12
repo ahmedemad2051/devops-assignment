@@ -1,12 +1,12 @@
 pipeline{
     agent { docker {
       image 'python:3.7.2'
-      args  '--net="bridge"'
+      args  '--net="host"'
      } }
     stages{
         stage('build') {
             steps {
-                sh 'pip install  -r app/requirements.txt --user'
+                sh 'pip install redis --user'
 
             }
         }
