@@ -1,19 +1,19 @@
-pipeline{
-    agent { docker {
-      image 'python:3.7.2'
-      args  '--net="host"'
-     } }
-    stages{
-        stage('build') {
-            steps {
-                sh 'python3 -m venv env'
-                sh 'source ./env/bin/activate'
-                sh 'python -m pip install redis --user'
-
-            }
-        }
-    }
+pipeline {
+   agent any
+   stages {
+       stage('Build') {
+           agent {
+               docker {
+                   image 'golang'
+               }
+           }
+           steps {
+               sh 'cd app && go build'              
+           }
+       }
 
 
 
+
+   }
 }
