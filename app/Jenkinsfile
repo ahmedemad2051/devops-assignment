@@ -1,13 +1,12 @@
 pipeline{
     agent { docker {
-          image 'python:3.7.2'
-          args  '--net="host"'
-      }
-     }
+      image 'python:3.7.2'
+      args  '--net="host"'
+     } }
     stages{
         stage('build') {
             steps {
-                sh 'ping 8.8.8.8'
+                sh 'pip3 install -r app/requirements.txt'
 
             }
         }
