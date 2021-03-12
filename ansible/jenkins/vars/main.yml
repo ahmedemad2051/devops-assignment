@@ -1,0 +1,3 @@
+---
+# vars file for jenkins
+kube_config: /home/onepiece/.kube/config

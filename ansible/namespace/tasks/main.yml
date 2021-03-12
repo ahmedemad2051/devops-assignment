@@ -1,0 +1,10 @@
+---
+# tasks file for namespace
+  - name: Create a namespace for CI/CD tools
+    k8s:
+      api_version: v1
+      definition:
+        kind: Namespace
+        metadata:
+          name: tools
+      kubeconfig: "{{ kube_config }}"

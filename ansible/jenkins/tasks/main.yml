@@ -1,0 +1,60 @@
+---
+# tasks file for jenkins
+- name: add jenkins deployment and it's service
+  k8s:
+    state: present
+    kubeconfig: "{{ kube_config }}"
+    #src: ./deployment.yml
+    definition:
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: jenkins
+        namespace: tools
+        labels:
+          app: jenkins
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: jenkins
+        template:
+          metadata:
+            labels:
+              app: jenkins
+          spec:
+            containers:
+            - name: jenkins
+              image: jenkins/jenkins:alpine
+              ports:
+              - containerPort: 8080
+              volumeMounts:
+              - name: docker-volume
+                mountPath: /var/run/docker.sock
+            #securityContext:
+            #  runAsUser: 0
+            volumes:
+            - name: docker-volume
+              hostPath:
+                path: /var/run/docker.sock
+
+- name: add jenkins service
+  k8s:
+    state: present
+    kubeconfig: "{{ kube_config }}"
+    #src: ./deployment.yml
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: jenkins-svc
+        namespace: tools
+        labels:
+          app: jenkins
+      spec:
+        type: LoadBalancer
+        ports:
+          - port: 80
+            targetPort: 8080
+        selector:
+          app: jenkins
