@@ -5,9 +5,8 @@ pipeline{
     stages{
         stage('build') {
             steps {
-        
-            sh 'ls'
-
+                sh 'pip install -r app/requirements.txt'
+            
             }
         }
     }
