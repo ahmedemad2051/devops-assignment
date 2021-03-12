@@ -5,8 +5,9 @@ pipeline{
     stages{
         stage('build') {
             steps {
-            sh 'ls ${WORKSPACE}'
-            
+            sh 'cd ${WORKSPACE}/app'
+            sh 'ls'
+
             }
         }
     }
