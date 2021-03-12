@@ -1,4 +1,6 @@
  - hosts: localhost
    roles:
-    - namespace
-    - jenkins
+     - namespace
+     - jenkins
+     - sonarQube
+     - nexus

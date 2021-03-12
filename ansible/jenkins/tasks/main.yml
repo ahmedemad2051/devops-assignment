@@ -1,10 +1,9 @@
 ---
 # tasks file for jenkins
-- name: add jenkins deployment and it's service
+- name: add jenkins deployment
   k8s:
     state: present
     kubeconfig: "{{ kube_config }}"
-    #src: ./deployment.yml
     definition:
       apiVersion: apps/v1
       kind: Deployment
@@ -42,7 +41,6 @@
   k8s:
     state: present
     kubeconfig: "{{ kube_config }}"
-    #src: ./deployment.yml
     definition:
       apiVersion: v1
       kind: Service

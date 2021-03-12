@@ -1,0 +1,3 @@
+---
+# vars file for nexus
+kube_config: /home/onepiece/.kube/config
