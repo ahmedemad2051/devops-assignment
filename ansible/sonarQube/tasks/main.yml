@@ -24,6 +24,10 @@
             containers:
             - name: sonarqube
               image: sonarqube:latest
+              resources:
+                limits:
+                  memory: "1Gi"
+                  cpu: "500m"
               ports:
                 - containerPort: 9000
 
