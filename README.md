@@ -118,11 +118,11 @@ Requirements Plugins
 
 Create a pipeline job on Jenkins
 
-![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2013-49-15.png)
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2019-09-36.png)
 
 Add the repo URL and Jenkinsfile path
 
-![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2013-49-15.png)
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2019-13-06.png)
 
 Now you can build the pipeline
 
