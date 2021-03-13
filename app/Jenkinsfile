@@ -47,7 +47,7 @@ pipeline {
           steps {
               script{
               echo image_name
-              sh "ansible-playbook app/playbook.yaml --extra-vars 'image='+${image_name}"
+              sh "ansible-playbook app/playbook.yaml --extra-vars \"image=app:8\""
               }
           }
       }
