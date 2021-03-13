@@ -7,4 +7,3 @@
         kind: Namespace
         metadata:
           name: tools
-      kubeconfig: "{{ kube_config }}"

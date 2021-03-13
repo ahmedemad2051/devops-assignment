@@ -3,7 +3,6 @@
 - name: add sonarQube deployment
   k8s:
     state: present
-    kubeconfig: "{{ kube_config }}"
     definition:
       apiVersion: apps/v1
       kind: Deployment
@@ -31,7 +30,6 @@
 - name: add sonarQube service
   k8s:
     state: present
-    kubeconfig: "{{ kube_config }}"
     definition:
       apiVersion: v1
       kind: Service

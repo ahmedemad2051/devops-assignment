@@ -1,3 +1,2 @@
 ---
 # vars file for sonarQube
-kube_config: /home/onepiece/.kube/config

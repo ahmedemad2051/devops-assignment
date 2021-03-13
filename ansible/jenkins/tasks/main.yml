@@ -3,7 +3,6 @@
 - name: add jenkins persistent volume
   k8s:
     state: present
-    kubeconfig: "{{ kube_config }}"
     definition:
       apiVersion: v1
       kind: PersistentVolume
@@ -24,7 +23,6 @@
 - name: add jenkins persistent volume claim
   k8s:
     state: present
-    kubeconfig: "{{ kube_config }}"
     definition:
       apiVersion: v1
       kind: PersistentVolumeClaim
@@ -42,7 +40,6 @@
 - name: add jenkins deployment
   k8s:
     state: present
-    kubeconfig: "{{ kube_config }}"
     definition:
       apiVersion: apps/v1
       kind: Deployment
@@ -61,6 +58,17 @@
             labels:
               app: jenkins
           spec:
+            initContainers:
+            - name: set-jenkins-home-permissions
+              image: alpine:3.11
+              command:
+              - chown
+              - -R
+              - 1000:1000
+              - /var/jenkins_home
+              volumeMounts:
+              - name: jenkins-pv-storage
+                mountPath: /var/jenkins_home
             containers:
             - name: jenkins
               image: ahmedemad2051/jenkins-ansible:latest
@@ -71,8 +79,8 @@
                 mountPath: /var/run/docker.sock
               - name: docker-command
                 mountPath: /usr/bin/docker
-              # - name: jenkins-pv-storage
-                # mountPath: /var/jenkins_home/
+              - name: jenkins-pv-storage
+                mountPath: /var/jenkins_home
             securityContext:
              fsGroup: 1950
             volumes:
@@ -89,7 +97,6 @@
 - name: add jenkins service
   k8s:
     state: present
-    kubeconfig: "{{ kube_config }}"
     definition:
       apiVersion: v1
       kind: Service
