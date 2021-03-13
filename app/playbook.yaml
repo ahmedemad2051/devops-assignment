@@ -25,7 +25,7 @@
             spec:
               containers:
               - name: app
-                image: nginx
+                image: ""
   - name: App Service
     k8s:
       state: present
