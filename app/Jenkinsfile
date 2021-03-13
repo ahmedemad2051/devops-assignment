@@ -2,6 +2,8 @@ pipeline {
    agent any
    environment {
     image_name = ''
+    registryCredential = 'dockerhub'
+    registry = "ahmedemad2051/app"
    }
    stages {
        stage('Build') {
@@ -37,8 +39,11 @@ pipeline {
       stage('Publish') {
           steps{
               script {
-                  image_name = "app" + ":$BUILD_NUMBER"
+                  image_name = registry + ":$BUILD_NUMBER"
                   dockerImage = docker.build(image_name,"--network  host -f app/Dockerfile .")
+                  docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push()
+                }
               }
           }
       }
@@ -46,7 +51,6 @@ pipeline {
       stage ('Deploy') {
           steps {
               script{
-              echo image_name
               sh "ansible-playbook app/playbook.yaml --extra-vars \"image=${image_name}\""
               }
           }
