@@ -1,25 +1,7 @@
 
 - hosts: localhost
   tasks:
-  - name: Deploy the service
-    k8s:
-      state: present
-      kubeconfig: "/var/jenkins_home/.kube/config"
-      namespace: tools
-      definition:
-        apiVersion: v1
-        kind: Service
-        metadata:
-          name: app
-        spec:
-          type: LoadBalancer
-          selector:
-            name: app
-          ports:
-            - port: 80
-              targetPort: 8080
-
-  - name: Deploy the app
+  - name: App Deployment
     k8s:
       state: present
       kubeconfig: "/var/jenkins_home/.kube/config"
@@ -43,4 +25,21 @@
             spec:
               containers:
               - name: app
-                image: "${image}"
+                image: nginx
+  - name: App Service
+    k8s:
+      state: present
+      kubeconfig: "/var/jenkins_home/.kube/config"
+      namespace: tools
+      definition:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: app
+        spec:
+          type: LoadBalancer
+          selector:
+            name: app
+          ports:
+            - port: 80
+              targetPort: 8080
