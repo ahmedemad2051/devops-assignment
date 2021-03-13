@@ -3,7 +3,37 @@ pipeline {
    environment {
     image_name = ''
    }
-
+   stages {
+       stage('Build') {
+           agent {
+               docker {
+                   image 'python:3.6.8'
+                   args  '--net="host" --user="root"'
+               }
+           }
+           steps {
+              sh 'pip3 install -r app/requirements.txt --user'
+           }
+       }
+       stage("test"){
+           agent {
+               docker {
+                   image 'python:3.6.8'
+                   args  '--net="host" --user="root"'
+               }
+           }
+          steps{
+              sh 'python app/tests/test.py'
+          }
+          post{
+              success{
+                  echo "======== test successfully========"
+              }
+              failure{
+                  echo "======== test failed========"
+              }
+          }
+      }
       stage('Publish') {
           steps{
               script {
@@ -17,7 +47,7 @@ pipeline {
           steps {
               script{
               echo image_name
-              sh "ansible-playbook app/playbook.yaml --extra-vars \"image=${image_name}\"
+              sh "ansible-playbook app/playbook.yaml --extra-vars \"image=${image_name}\""
               }
           }
       }
