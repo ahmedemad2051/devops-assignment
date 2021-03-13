@@ -40,10 +40,12 @@ pipeline {
           steps{
               script {
                   image_name = registry + ":$BUILD_NUMBER"
-                  dockerImage = docker.build(image_name,"--network  host -f app/Dockerfile .")
-                  docker.withRegistry( '', registryCredential ) {
-                    dockerImage.push()
-                }
+                  dir('app'){
+                      dockerImage = docker.build(image_name,"--network  host -f Dockerfile .")
+                      docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                  }
               }
           }
       }
