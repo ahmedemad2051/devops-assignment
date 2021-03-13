@@ -124,7 +124,32 @@ Add the repo URL and Jenkinsfile path
 
 ![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-12%2019-13-06.png)
 
+First you should configure Jenkins to use kubectl 
+Go inside Jenkins container first by run
+
+```bash
+$ kubectl exec -it  [jenkins-pod-name] -n tools bash
+```
+Configure AWS credentials (hint: this should be done by attach IAM role to the nodes)
+
+```bash
+$ aws configure
+```
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-13%2010-49-24.png)
+
+Run below command so you can use kubectl
+
+```bash
+$ aws eks --region eu-north-1 update-kubeconfig --name first_cluster
+```
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-13%2010-50-10.png)
+
 Now you can build the pipeline
+
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-13%2012-16-32.png)
+
+![console](https://github.com/ahmedemad2051/devops-assignment/blob/main/readme_images/Screenshot%20from%202021-03-13%2012-15-48.png)
+
 
 
 
