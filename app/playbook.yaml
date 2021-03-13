@@ -25,7 +25,7 @@
             spec:
               containers:
               - name: app
-                image: ${image}
+                image: '{{image}}'
   - name: App Service
     k8s:
       state: present
