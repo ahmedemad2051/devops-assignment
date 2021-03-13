@@ -46,7 +46,8 @@ pipeline {
       stage ('Deploy') {
           steps {
               script{
-              sh 'ansible-playbook app/playbook.yaml --extra-vars \"image_id=app:2\"'
+              echo image_name
+              sh 'ansible-playbook app/playbook.yaml --extra-vars \"image=${image_name}\"'
               }
           }
       }
